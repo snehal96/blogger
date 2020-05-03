@@ -10,7 +10,9 @@ import {
   Badge,
 } from "reactstrap"
 import { slugify } from "../util/utilfunctions"
+
 const Post = ({ title, date, author, path, body, fluid, tags }) => {
+  let count = 0
   return (
     <div>
       <Card>
@@ -32,10 +34,11 @@ const Post = ({ title, date, author, path, body, fluid, tags }) => {
           <CardText>{body}</CardText>
           <ul className="post-tags">
             {tags.map(tag => (
-              <li>
+              <li key={count++}>
                 <Link to={`tags/${slugify(tag)}`}>
                   <Badge color="primary" className="text-uppercase">
                     {tag}
+                    {count}
                   </Badge>
                 </Link>
               </li>

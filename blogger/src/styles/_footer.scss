@@ -1,35 +1,28 @@
-.site-footer {
-  background-color: $white;
-  margin-top: 20px;
-  padding: 10px;
-  text-align: center;
+li.social-media-links {
+  ul.social-links-list {
+    display: inline;
+    li {
+      margin-right: 15px;
+      display: inline;
 
-  .footer-social-links {
-    text-align: center;
+      a {
+        color: $dark-gray;
+        display: inline;
 
-    ul.social-links-list {
-      li {
-        margin-right: 25px;
-        display: inline-block;
-
-        a {
-          color: $dark-gray;
-
-          &.instagram:hover {
-            color: #e95950;
-          }
-          &.facebook:hover {
-            color: rgb(66, 103, 178);
-          }
-          &.twitter:hover {
-            color: rgb(56, 161, 243);
-          }
-          &.google:hover {
-            color: rgb(221, 75, 57);
-          }
-          &.linkedin:hover {
-            color: rgb(0, 119, 181);
-          }
+        &.instagram:hover {
+          color: #e95950;
+        }
+        &.facebook:hover {
+          color: rgb(66, 103, 178);
+        }
+        &.twitter:hover {
+          color: rgb(56, 161, 243);
+        }
+        &.google:hover {
+          color: rgb(221, 75, 57);
+        }
+        &.linkedin:hover {
+          color: rgb(0, 119, 181);
         }
       }
     }
