@@ -3,6 +3,7 @@ title: "Second Post"
 date: 2020-05-02 08:00:00
 author: "John Doe"
 path: "/second-post"
+image: ../../images/blog_icon.png
 ---
 
 Welcome to 100 Days of blogging.
