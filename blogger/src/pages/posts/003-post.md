@@ -4,6 +4,9 @@ date: 2020-05-02 09:00:00
 author: "Jane Doe"
 path: "/third-post"
 image: ../../images/blog_icon.png
+tags:
+  - code
+  - 100 days of
 ---
 
 Welcome to 100 Days of blogging.
