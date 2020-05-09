@@ -1,10 +1,80 @@
 import React from "react"
-import { Card, CardBody, CardTitle, Form, FormGroup, Input } from "reactstrap"
+import {
+  Card,
+  CardBody,
+  CardTitle,
+  Form,
+  FormGroup,
+  Input,
+  CardText,
+} from "reactstrap"
 import { graphql, StaticQuery, Link } from "gatsby"
 import Img from "gatsby-image"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import {
+  faFacebookSquare,
+  faLinkedinIn,
+  faInstagramSquare,
+  faTwitterSquare,
+} from "@fortawesome/free-brands-svg-icons"
 
-const Sidebar = () => (
+const Sidebar = ({ author, authorImage }) => (
   <div>
+    {author && (
+      <Card>
+        <Img className="card-image-top" fluid={authorImage} />
+        <CardBody>
+          <CardTitle className="text-center text-uppercase mb-3">
+            {author.name}
+          </CardTitle>
+          <CardText>{author.bio}</CardText>
+          <div className="author-social-links text-center">
+            <ul className="social-links-list">
+              <li>
+                <a
+                  href="https://www.facebook.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="facebook"
+                >
+                  <FontAwesomeIcon icon={faFacebookSquare} />
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.facebook.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="twitter"
+                >
+                  <FontAwesomeIcon icon={faTwitterSquare} />
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.facebook.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="instagram"
+                >
+                  <FontAwesomeIcon icon={faInstagramSquare} />
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.facebook.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="linkedin"
+                >
+                  <FontAwesomeIcon icon={faLinkedinIn} />
+                </a>
+              </li>
+            </ul>
+          </div>
+        </CardBody>
+      </Card>
+    )}
     <Card>
       <CardBody>
         <CardTitle className="text-uppercase text-center mb-3">

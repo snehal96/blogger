@@ -2,14 +2,20 @@ import React from "react"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { slugify } from "../util/utilfunctions"
+import authors from "../util/authors"
 import { graphql, Link } from "gatsby"
 import { Card, CardBody, CardSubtitle, Badge } from "reactstrap"
 import Img from "gatsby-image"
 
 const SinglePost = ({ data }) => {
   const post = data.markdownRemark.frontmatter
+  const author = authors.find(x => x.name === post.author)
   return (
-    <Layout laytitle={post.title}>
+    <Layout
+      laytitle={post.title}
+      postAuthor={author}
+      authorImage={data.file.childImageSharp.fluid}
+    >
       <SEO title={post.title} />
       <Card>
         <Img
@@ -39,7 +45,7 @@ const SinglePost = ({ data }) => {
 }
 
 export const postQuery = graphql`
-  query blogpostbyslug($slug: String!) {
+  query blogpostbyslug($slug: String!, $imageUrl: String!) {
     markdownRemark(fields: { slug: { eq: $slug } }) {
       id
       html
@@ -57,6 +63,14 @@ export const postQuery = graphql`
               ...GatsbyImageSharpFluid
             }
           }
+        }
+      }
+    }
+
+    file(relativePath: { eq: $imageUrl }) {
+      childImageSharp {
+        fluid(maxWidth: 300) {
+          ...GatsbyImageSharpFluid
         }
       }
     }
