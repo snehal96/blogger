@@ -9,7 +9,7 @@ import {
 } from "@fortawesome/free-brands-svg-icons"
 
 const Footer = () => (
-  <Navbar fixed="bottom">
+  <Navbar>
     <div className="container">
       <h4 className="text-center" style={{ fontWeight: "bolder" }}>
         100 Days Blogging
