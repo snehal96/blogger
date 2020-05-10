@@ -91,9 +91,9 @@ exports.createPages = async ({ actions, graphql }) => {
     })
 
     const postPerPage = 2
-    const numberOfpage = Math.ceil(posts.length / postPerPage)
+    const numberOfPages = Math.ceil(posts.length / postPerPage)
 
-    Array.from({ length: numberOfpage }).forEach((_, index) => {
+    Array.from({ length: numberOfPages }).forEach((_, index) => {
       const isFirstPage = index === 0
       const currentPage = index + 1
 
@@ -106,6 +106,7 @@ exports.createPages = async ({ actions, graphql }) => {
           limit: postPerPage,
           skip: index * postPerPage,
           currentPage,
+          numberOfPages,
         },
       })
     })
