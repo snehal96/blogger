@@ -1,6 +1,7 @@
 const { slugify } = require("./src/util/utilfunctions")
 const path = require("path")
 const author = require("./src/util/authors")
+const _ = require("lodash")
 
 exports.onCreateNode = ({ node, actions }) => {
   const { createNodeField } = actions
@@ -16,6 +17,10 @@ exports.onCreateNode = ({ node, actions }) => {
 
 exports.createPages = async ({ actions, graphql }) => {
   const { createPage } = actions
+  const template = {
+    singlePost: path.resolve("src/templates/single-post.js"),
+    tagsPage: path.resolve("src/templates/tags-page.js"),
+  }
 
   return graphql(`
     {
@@ -24,6 +29,7 @@ exports.createPages = async ({ actions, graphql }) => {
           node {
             frontmatter {
               author
+              tags
             }
             fields {
               slug
@@ -40,13 +46,36 @@ exports.createPages = async ({ actions, graphql }) => {
     posts.forEach(({ node }) => {
       createPage({
         path: node.fields.slug,
-        component: path.resolve(`./src/templates/single-post.js`),
+        component: template.singlePost,
         context: {
           slug: node.fields.slug,
           imageUrl: author.find(x => x.name === node.frontmatter.author)
             .imageUrl,
         },
       })
+    })
+
+    let tags = []
+    _.each(posts, edge => {
+      if (_.get(edge, "node.frontmatter.tags")) {
+        tags = tags.concat(edge.node.frontmatter.tags)
+      }
+    })
+
+    let tagPostCount = {}
+    tags.forEach(tag => {
+      tagPostCount[tag] = (tagPostCount[tag] || 0) + 1
+    })
+
+    tags = _.uniq(tags)
+
+    createPage({
+      path: "/tags",
+      component: template.tagsPage,
+      context: {
+        tags,
+        tagPostCount,
+      },
     })
   })
 }
