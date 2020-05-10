@@ -1,6 +1,6 @@
 const { slugify } = require("./src/util/utilfunctions")
 const path = require("path")
-const author = require("./src/util/authors")
+const authors = require("./src/util/authors")
 const _ = require("lodash")
 
 exports.onCreateNode = ({ node, actions }) => {
@@ -22,6 +22,7 @@ exports.createPages = async ({ actions, graphql }) => {
     tagsPage: path.resolve("src/templates/tags-page.js"),
     tagPosts: path.resolve("src/templates/tags-posts.js"),
     postList: path.resolve("src/templates/post-list.js"),
+    authorPosts: path.resolve("src/templates/author-posts.js"),
   }
 
   return graphql(`
@@ -51,7 +52,7 @@ exports.createPages = async ({ actions, graphql }) => {
         component: template.singlePost,
         context: {
           slug: node.fields.slug,
-          imageUrl: author.find(x => x.name === node.frontmatter.author)
+          imageUrl: authors.find(x => x.name === node.frontmatter.author)
             .imageUrl,
         },
       })
@@ -107,6 +108,17 @@ exports.createPages = async ({ actions, graphql }) => {
           skip: index * postPerPage,
           currentPage,
           numberOfPages,
+        },
+      })
+    })
+
+    authors.forEach(author => {
+      createPage({
+        path: `/author/${slugify(author.name)}`,
+        component: template.authorPosts,
+        context: {
+          authorName: author.name,
+          imageUrl: author.imageUrl,
         },
       })
     })
